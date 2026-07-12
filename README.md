@@ -71,6 +71,7 @@ cd raujin-calc
 npm install
 npm run dev
 npm run build
+```
 
 Технологии
 

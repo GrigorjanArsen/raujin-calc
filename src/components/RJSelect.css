@@ -1,0 +1,99 @@
+.rj-select {
+  position: relative;
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 13px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  user-select: none;
+  font-family: 'Spectral', serif;
+  font-size: 1rem;
+  color: var(--wd);
+  outline: none;
+}
+
+.rj-select.filled {
+  color: var(--w);
+}
+
+.rj-select:hover,
+.rj-select.open {
+  border-color: var(--gold);
+}
+
+.rj-select-value {
+  display: block;
+  padding-right: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rj-select-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11px;
+  height: 11px;
+  stroke: var(--wd);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.2s;
+  pointer-events: none;
+}
+
+.rj-select.open .rj-select-arrow {
+  transform: translateY(-50%) rotate(180deg);
+  stroke: var(--gold);
+}
+
+.rj-select-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  max-height: 240px;
+  overflow-y: auto;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+}
+
+.rj-select-list.above {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+
+.rj-select-option {
+  padding: 10px 12px;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  color: var(--wd);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.rj-select-option.highlighted {
+  background: var(--gl);
+  color: var(--gold);
+}
+
+.rj-select-option.selected {
+  color: var(--gold);
+}
+
+.rj-select-option-marker {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(13deg);
+}

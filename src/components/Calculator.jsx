@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NICHES, SERVICES, TRAFFIC_SOURCES, calculateResults } from '../data/calculatorData.js'
+import RJSelect from './RJSelect.jsx'
 import './Calculator.css'
-import CustomSelect from './CustomSelect.jsx'
 
 const Calculator = () => {
   const [formData, setFormData] = useState({
@@ -17,49 +17,26 @@ const Calculator = () => {
 
   const isNoNiche = formData.niche === 'no-niche'
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    const input = e.target
-    if (name === 'audience' && value) {
-      const num = Number(value)
-      if (num < 100) {
-        input.setCustomValidity('Минимальное значение — 100')
-      } else if (num > 10000000) {
-        input.setCustomValidity('Максимальное значение — 10 000 000')
-      } else {
-        input.setCustomValidity('')
-      }
-    }
-    setFormData({
-      ...formData,
-      [name]: value,
-    })
+  const setField = (name, value) => {
+    setFormData((prev) => ({ ...prev, [name]: value }))
     if (results) setResults(null)
     if (error) setError('')
   }
 
+  const handleAudienceChange = (e) => {
+    setField('audience', e.target.value)
+  }
+
   const handleSpinUp = () => {
-    const input = document.querySelector('input[name="audience"]')
-    if (input) {
-      const val = Number(input.value) || 0
-      const max = Number(input.max) || 10000000
-      const newVal = Math.min(val + 1, max)
-      input.value = newVal
-      const event = new Event('input', { bubbles: true })
-      input.dispatchEvent(event)
-    }
+    const val = Number(formData.audience) || 0
+    const newVal = Math.min(val + 1, 10000000)
+    setField('audience', String(newVal))
   }
 
   const handleSpinDown = () => {
-    const input = document.querySelector('input[name="audience"]')
-    if (input) {
-      const val = Number(input.value) || 0
-      const min = Number(input.min) || 100
-      const newVal = Math.max(val - 1, min)
-      input.value = newVal
-      const event = new Event('input', { bubbles: true })
-      input.dispatchEvent(event)
-    }
+    const val = Number(formData.audience) || 0
+    const newVal = Math.max(val - 1, 100)
+    setField('audience', String(newVal))
   }
 
   const buildLeadUrl = () => {
@@ -85,6 +62,11 @@ const Calculator = () => {
 
     if (isNoNiche) {
       window.location.href = 'https://raujin.homoplanetae.ru/contact.html'
+      return
+    }
+
+    if (!formData.niche || !formData.service || !formData.traffic) {
+      setError('Заполните нишу, услугу и источник трафика')
       return
     }
 
@@ -119,16 +101,16 @@ const Calculator = () => {
       </div>
 
       <form onSubmit={handleSubmit} className="calculator-form">
-        {/* НИША — лейбл внутри CustomSelect, поэтому <label> не нужен */}
-        <CustomSelect
-          options={NICHES}
-          value={formData.niche}
-          onChange={handleChange}
-          placeholder="Выберите нишу"
-          label="НИША"
-          name="niche"
-          required
-        />
+        <div className="form-group">
+          <label className="numbers" id="niche-label">НИША</label>
+          <RJSelect
+            id="niche"
+            options={NICHES}
+            value={formData.niche}
+            onChange={(val) => setField('niche', val)}
+            placeholder="Выберите нишу"
+          />
+        </div>
 
         {isNoNiche ? (
           <div className="no-niche-message">
@@ -138,25 +120,27 @@ const Calculator = () => {
           </div>
         ) : (
           <>
-            <CustomSelect
-              options={SERVICES}
-              value={formData.service}
-              onChange={handleChange}
-              placeholder="Выберите услугу"
-              label="УСЛУГА"
-              name="service"
-              required
-            />
+            <div className="form-group">
+              <label className="numbers" id="service-label">УСЛУГА</label>
+              <RJSelect
+                id="service"
+                options={SERVICES}
+                value={formData.service}
+                onChange={(val) => setField('service', val)}
+                placeholder="Выберите услугу"
+              />
+            </div>
 
-            <CustomSelect
-              options={TRAFFIC_SOURCES}
-              value={formData.traffic}
-              onChange={handleChange}
-              placeholder="Выберите источник"
-              label="ОТКУДА ТРАФИК"
-              name="traffic"
-              required
-            />
+            <div className="form-group">
+              <label className="numbers" id="traffic-label">ОТКУДА ТРАФИК</label>
+              <RJSelect
+                id="traffic"
+                options={TRAFFIC_SOURCES}
+                value={formData.traffic}
+                onChange={(val) => setField('traffic', val)}
+                placeholder="Выберите источник"
+              />
+            </div>
 
             <div className="form-group">
               <label className="numbers">ОБЪЁМ АУДИТОРИИ</label>
@@ -164,8 +148,9 @@ const Calculator = () => {
                 <input
                   type="number"
                   name="audience"
+                  className={formData.audience ? 'filled' : ''}
                   value={formData.audience}
-                  onChange={handleChange}
+                  onChange={handleAudienceChange}
                   onWheel={(e) => e.target.blur()}
                   onKeyDown={(e) => {
                     if (['e', 'E', '+', '-'].includes(e.key)) {
@@ -173,7 +158,6 @@ const Calculator = () => {
                     }
                   }}
                   placeholder="Например: 10000"
-                  required
                   min="100"
                   max="10000000"
                 />

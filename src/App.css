@@ -3,13 +3,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem 0;
-  overflow: visible !important;
 }
 
 .calculator-section {
   position: relative;
   padding: 3rem 0;
-  overflow: visible !important;
 }
 
 .calculator-section::before {
@@ -53,25 +51,21 @@
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  opacity: 0.8;
+  background: var(--gl);
+  border-radius: 2px;
 }
 
 ::selection {
   background: var(--gold);
-  color: var(--bg-primary);
+  color: var(--bg);
 }
 
 a {

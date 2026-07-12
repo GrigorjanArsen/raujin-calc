@@ -4,7 +4,17 @@
   --text-light: #E8E0D0;
   --angle: 13deg;
   --transition: 0.3s ease;
-  
+
+  --bg: #080808;
+  --s1: #0e0e0e;
+  --s2: #131313;
+  --gl: rgba(196, 163, 90, 0.22);
+  --w: #F0EDE8;
+  --wd: rgba(240, 237, 232, 0.5);
+  --border: rgba(240, 237, 232, 0.07);
+  scrollbar-color: rgba(196, 163, 90, 0.25) transparent;
+  scrollbar-width: thin;
+
   --heading: 'Cormorant Garamond', serif;
   --text: 'Spectral', serif;
   --mono: 'JetBrains Mono', monospace;
@@ -17,23 +27,23 @@
 }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-light);
+  background: var(--bg);
+  color: var(--w);
   font-family: var(--text);
+  font-weight: 300;
   min-height: 100vh;
   position: relative;
   font-size: 18px;
   line-height: 1.6;
-  overflow-x: hidden; 
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  opacity: 0.05;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.028'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
 }
@@ -47,14 +57,13 @@ body::before {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  overflow: visible !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading);
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--text-light);
+  color: var(--w);
 }
 
 h1 {
@@ -112,7 +121,7 @@ p, span, label, button, input, select {
   #root {
     padding: 1rem;
   }
-  
+
   h1 {
     font-size: 36px;
   }

@@ -1,0 +1,75 @@
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    cursor: none;
+  }
+}
+
+@media (pointer: fine) {
+  #cur,
+  #cur-ring,
+  #cur-hand {
+    display: block;
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+  }
+
+  #cur,
+  #cur-ring {
+    transform: translate(-50%, -50%);
+  }
+
+  #cur {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    z-index: 99999;
+    transition: opacity 0.2s;
+  }
+
+  #cur-ring {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(196, 163, 90, 0.35);
+    border-radius: 50%;
+    z-index: 99998;
+    transition: opacity 0.3s, width 0.3s, height 0.3s;
+  }
+
+  #cur-ring.cur-ring-active {
+    opacity: 0;
+    cursor: none;
+  }
+
+  #cur-hand {
+    z-index: 100000;
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    transform: translate(-16%, -8%) scale(0.55) rotate(-10deg);
+    transition: opacity 0.2s, transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #cur-hand.cur-hand-active {
+    opacity: 1;
+    transform: translate(-16%, -8%) scale(1) rotate(0deg);
+  }
+
+  #cur-hand path:first-child {
+    fill: var(--gold);
+    stroke: var(--bg);
+  }
+
+  #cur-hand path:last-child {
+    fill: none;
+    stroke: var(--bg);
+  }
+}

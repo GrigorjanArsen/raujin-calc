@@ -24,7 +24,17 @@ const Calculator = () => {
   }
 
   const handleAudienceChange = (e) => {
-    setField('audience', e.target.value)
+    let val = e.target.value
+
+    if (val.length > 1 && val.startsWith('0')) {
+      val = val.slice(0, 1)
+    }
+
+    if (val.length > 8) {
+      val = val.slice(0, 8)
+    }
+
+    setField('audience', val)
   }
 
   const handleSpinUp = () => {
@@ -160,7 +170,9 @@ const Calculator = () => {
                   placeholder="Например: 10000"
                   min="100"
                   max="10000000"
+                  maxLength={8}
                 />
+                <span className="audience-hint">от 100 до 10 000 000 человек</span>
                 <div className="spin-buttons">
                   <button type="button" className="spin-btn" onClick={handleSpinUp}>
                     ▲

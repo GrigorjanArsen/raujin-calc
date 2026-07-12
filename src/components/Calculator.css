@@ -47,7 +47,7 @@
 
 .form-group input {
   background: var(--s1);
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
   border-radius: 2px;
   padding: 13px 16px;
   color: var(--wd);
@@ -63,7 +63,7 @@
 
 .form-group input:hover,
 .form-group input:focus {
-  border-color: var(--gold);
+  border-color: color-mix(in srgb, var(--gold) 65%, transparent);
 }
 
 .calculate-btn {
@@ -214,7 +214,7 @@ input[type="number"] {
 }
 
 .input-wrapper input[type="number"]:focus {
-  border-color: var(--gold);
+  border-color: color-mix(in srgb, var(--gold) 65%, transparent);
 }
 
 .input-wrapper .spin-buttons {
@@ -256,6 +256,29 @@ input[type="number"] {
   color: var(--bg);
 }
 
+.input-wrapper .audience-hint {
+  position: absolute;
+  right: 45px;
+  bottom: 0;
+  transform: translateY(50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  opacity: 0.8;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow:
+    1px 1px 0 var(--s1),
+    -1px 1px 0 var(--s1),
+    1px -1px 0 var(--s1),
+    -1px -1px 0 var(--s1),
+    2px 0 0 var(--s1),
+    -2px 0 0 var(--s1),
+    0 2px 0 var(--s1),
+    0 -2px 0 var(--s1);
+}
+
 .error-message {
   color: #ff6b6b;
   font-family: 'JetBrains Mono', monospace;
@@ -288,5 +311,10 @@ input[type="number"] {
 
   .explanation-text {
     font-size: 0.9rem;
+  }
+
+  .input-wrapper .audience-hint {
+    font-size: 0.58rem;
+    right: 12px;
   }
 }

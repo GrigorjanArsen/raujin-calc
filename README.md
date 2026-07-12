@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="Raujin Calc" width="100%" />
+<img src="src/assets/banner.svg" alt="Raujin Calc" width="100%" />
 
 <br />
 

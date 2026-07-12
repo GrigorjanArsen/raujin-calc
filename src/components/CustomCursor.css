@@ -1,12 +1,13 @@
 @media (pointer: fine) {
-  body,
-  a,
-  button,
-  input,
-  textarea,
-  select,
-  [role="button"] {
-    cursor: none;
+  /* Убираем системный курсор ВЕЗДЕ, без исключений.
+     Раньше список был "body, a, button, input, textarea, select, [role='button']" —
+     в нём не было label / [role="combobox"] / [role="option"], поэтому на них
+     проглядывал системный курсор. Универсальный селектор решает проблему
+     навсегда и не требует синхронизации со списком интерактивных элементов в JS. */
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
   }
 }
 
@@ -35,6 +36,10 @@
     transition: opacity 0.2s;
   }
 
+  #cur.cur-dot-hidden {
+    opacity: 0 !important;
+  }
+
   #cur-ring {
     width: 34px;
     height: 34px;
@@ -45,8 +50,7 @@
   }
 
   #cur-ring.cur-ring-active {
-    opacity: 0;
-    cursor: none;
+    opacity: 0 !important;
   }
 
   #cur-hand {

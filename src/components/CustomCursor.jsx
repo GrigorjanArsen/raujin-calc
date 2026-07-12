@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 import './CustomCursor.css'
 
+// Единый список интерактивных элементов.
+const INTERACTIVE_SELECTOR =
+  'a, button, [role="button"], [role="combobox"], [role="option"], [role="listbox"], ' +
+  '[role="switch"], [role="checkbox"], [role="radio"], input, textarea, select, label, ' +
+  '[contenteditable="true"], [data-cursor="hand"]'
+
 const CustomCursor = () => {
   const dotRef = useRef(null)
   const ringRef = useRef(null)
@@ -9,8 +15,26 @@ const CustomCursor = () => {
   const ring = useRef({ x: -100, y: -100 })
   const frameRef = useRef(null)
 
+  const isOverInteractive = useRef(false)
+  const isInsideWindow = useRef(true)
+
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return
+
+    // Точку и кольцо скрываем/показываем напрямую через inline-стиль с
+    // !important — это самый высокий приоритет в каскаде CSS, выше любых
+    // сторонних !important-правил из глобальных стилей проекта. Так что
+    // ЧТО БЫ ни было в остальном CSS проекта, точка гарантированно исчезнет
+    // одновременно с появлением руки.
+    const applyDotRingVisibility = () => {
+      const hidden = isOverInteractive.current || !isInsideWindow.current
+      if (dotRef.current) {
+        dotRef.current.style.setProperty('opacity', hidden ? '0' : '1', 'important')
+      }
+      if (ringRef.current) {
+        ringRef.current.style.setProperty('opacity', hidden ? '0' : '1', 'important')
+      }
+    }
 
     const handleMove = (e) => {
       mouse.current.x = e.clientX
@@ -26,11 +50,26 @@ const CustomCursor = () => {
     }
 
     const handleOver = (e) => {
-      const interactive = e.target.closest(
-        'a, button, [role="button"], [role="combobox"], [role="option"], input, textarea'
-      )
-      if (ringRef.current) ringRef.current.classList.toggle('cur-ring-active', Boolean(interactive))
-      if (handRef.current) handRef.current.classList.toggle('cur-hand-active', Boolean(interactive))
+      const interactive = Boolean(e.target.closest(INTERACTIVE_SELECTOR))
+      isOverInteractive.current = interactive
+      applyDotRingVisibility()
+      if (handRef.current) handRef.current.classList.toggle('cur-hand-active', interactive)
+    }
+
+    // relatedTarget === null означает, что мышь реально покинула/вошла в
+    // окно браузера (а не просто перешла с одного элемента страницы на
+    // другой — тогда relatedTarget всегда есть).
+    const handleWindowLeave = (e) => {
+      if (e.relatedTarget) return
+      isInsideWindow.current = false
+      applyDotRingVisibility()
+      if (handRef.current) handRef.current.classList.remove('cur-hand-active')
+    }
+
+    const handleWindowEnter = (e) => {
+      if (e.relatedTarget) return
+      isInsideWindow.current = true
+      applyDotRingVisibility()
     }
 
     const animate = () => {
@@ -45,11 +84,15 @@ const CustomCursor = () => {
 
     document.addEventListener('mousemove', handleMove)
     document.addEventListener('mouseover', handleOver)
+    document.addEventListener('mouseout', handleWindowLeave)
+    document.addEventListener('mouseover', handleWindowEnter)
     frameRef.current = requestAnimationFrame(animate)
 
     return () => {
       document.removeEventListener('mousemove', handleMove)
       document.removeEventListener('mouseover', handleOver)
+      document.removeEventListener('mouseout', handleWindowLeave)
+      document.removeEventListener('mouseover', handleWindowEnter)
       if (frameRef.current) cancelAnimationFrame(frameRef.current)
     }
   }, [])

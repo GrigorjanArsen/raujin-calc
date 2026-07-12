@@ -1,16 +1,107 @@
-# React + Vite
+# Калькулятор дизайна
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Интерактивный инструмент для расчёта потенциала роста бизнеса от дизайн-услуг
 
-Currently, two official plugins are available:
+## О проекте
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Профессиональный калькулятор, разработанный в рамках производственной практики в дизайн-студии. Позволяет оценить экономический эффект от внедрения дизайн-услуг с учётом ниши бизнеса, канала трафика и объёма аудитории.
 
-## React Compiler
+## Как это работает
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Выберите нишу — от E-commerce до HoReCa (12 вариантов)
+2. Выберите услугу — брендинг, веб-дизайн, UI/UX и другие (9 услуг)
+3. Укажите источник трафика — Instagram, Telegram, контекстная реклама, SEO и т.д.
+4. Введите объём аудитории — от 100 до 10 000 000 человек
+5. Получите результат: потенциал роста в %, ориентировочную прибыль, срок окупаемости услуги и детальное объяснение расчёта
 
-## Expanding the ESLint configuration
+## Формула расчёта
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Рост (%) = база ниши + модификатор услуги + бонус от аудитории
+Прибыль (₽) = аудитория × конверсия × средний чек × (рост / 100)
+Окупаемость (мес.) = стоимость услуги / (прибыль / 12)
+
+## Фирменный стиль
+
+- Тёмная тема: #080808
+- Акцентный цвет: #C4A35A
+- Шрифты: Cormorant Garamond (заголовки), Spectral (текст), JetBrains Mono (цифры)
+- Шум на фоне и угловой мотив 13°
+
+## Установка и запуск
+
+```bash
+git clone https://github.com/GrigorjanArsen/raujin-calc.git
+cd raujin-calc
+npm install
+npm run dev
+npm run build# Калькулятор дизайна
+
+Интерактивный инструмент для расчёта потенциала роста бизнеса от дизайн-услуг
+
+## О проекте
+
+Профессиональный калькулятор, разработанный в рамках производственной практики в дизайн-студии. Позволяет оценить экономический эффект от внедрения дизайн-услуг с учётом ниши бизнеса, канала трафика и объёма аудитории.
+
+## Как это работает
+
+1. Выберите нишу — от E-commerce до HoReCa (12 вариантов)
+2. Выберите услугу — брендинг, веб-дизайн, UI/UX и другие (9 услуг)
+3. Укажите источник трафика — Instagram, Telegram, контекстная реклама, SEO и т.д.
+4. Введите объём аудитории — от 100 до 10 000 000 человек
+5. Получите результат: потенциал роста в %, ориентировочную прибыль, срок окупаемости услуги и детальное объяснение расчёта
+
+## Формула расчёта
+
+Рост (%) = база ниши + модификатор услуги + бонус от аудитории
+Прибыль (₽) = аудитория × конверсия × средний чек × (рост / 100)
+Окупаемость (мес.) = стоимость услуги / (прибыль / 12)
+
+## Фирменный стиль
+
+- Тёмная тема: #080808
+- Акцентный цвет: #C4A35A
+- Шрифты: Cormorant Garamond (заголовки), Spectral (текст), JetBrains Mono (цифры)
+- Шум на фоне и угловой мотив 13°
+
+## Установка и запуск
+
+```bash
+git clone https://github.com/GrigorjanArsen/raujin-calc.git
+cd raujin-calc
+npm install
+npm run dev
+npm run build
+
+Технологии
+
+- React 18
+- Vite
+- CSS
+- GitHub Pages
+
+Структура проекта
+
+src/
+├── components/
+│   ├── Calculator.jsx
+│   ├── CustomSelect.jsx
+│   └── Footer.jsx
+├── data/
+│   └── calculatorData.js
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx
+
+
+Автор
+
+Арсен Григорян
+Студент 3 курса, Тюменский индустриальный университет
+Дизайнер-разработчик
+
+Лицензия
+MIT
+
+Расчёт ориентировочный, основан на средних показателях по нише, не является гарантией дохода.
+

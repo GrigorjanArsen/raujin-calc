@@ -26,6 +26,8 @@ const Calculator = () => {
   const handleAudienceChange = (e) => {
     let val = e.target.value
 
+    val = val.replace(/\D/g, '')
+
     if (val.length > 1 && val.startsWith('0')) {
       val = val.slice(0, 1)
     }
@@ -104,7 +106,8 @@ const Calculator = () => {
     <div className="calculator-container">
       <div className="calculator-header">
         <h1>
-          Калькулятор <span className="gold">дизайна</span>
+          Калькулятор<br />
+          <span className="gold">дизайна</span>
         </h1>
         <div className="divider"></div>
         <p className="subtitle">Рассчитайте потенциал роста вашего бизнеса</p>
@@ -163,10 +166,11 @@ const Calculator = () => {
                   onChange={handleAudienceChange}
                   onWheel={(e) => e.target.blur()}
                   onKeyDown={(e) => {
-                    if (['e', 'E', '+', '-'].includes(e.key)) {
+                    if (['e', 'E', '+', '-', '.', ','].includes(e.key)) {
                       e.preventDefault()
                     }
                   }}
+                  inputMode="numeric"
                   placeholder="Например: 10000"
                   min="100"
                   max="10000000"

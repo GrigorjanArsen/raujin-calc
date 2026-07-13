@@ -18,6 +18,7 @@
   font-size: 3.5rem;
   font-weight: 600;
   letter-spacing: 0.05em;
+  line-height: 1.15;
 }
 
 .subtitle {
@@ -55,6 +56,7 @@
   font-size: 1rem;
   transition: border-color 0.2s, color 0.2s;
   outline: none;
+  touch-action: manipulation;
 }
 
 .form-group input.filled {
@@ -78,6 +80,7 @@
   transition: 0.3s ease;
   margin-top: 1rem;
   border-radius: 4px;
+  touch-action: manipulation;
 }
 
 .calculate-btn:hover:not(:disabled) {
@@ -158,6 +161,7 @@
   text-decoration: none;
   border-radius: 4px;
   transition: 0.3s ease;
+  touch-action: manipulation;
 }
 
 .lead-btn:hover {
@@ -243,6 +247,7 @@ input[type="number"] {
   border-radius: 2px;
   user-select: none;
   opacity: 0.6;
+  touch-action: manipulation;
 }
 
 .input-wrapper .spin-btn:hover {
@@ -316,5 +321,75 @@ input[type="number"] {
   .input-wrapper .audience-hint {
     font-size: 0.58rem;
     right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-container {
+    padding: 0.6rem;
+    border-radius: 3px;
+  }
+
+  .calculator-header {
+    
+    margin-bottom: 1.1rem;
+  }
+
+  .calculator-header h1 {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  .calculator-form {
+    gap: 0.9rem;
+  }
+
+  .form-group {
+    gap: 0.35rem;
+  }
+
+  .form-group label {
+    font-size: 0.65rem;
+  }
+
+  .form-group input,
+  .rj-select {
+    padding: 9px 12px;
+    font-size: 16px;
+  }
+
+  .calculate-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  .results-grid {
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .result-item .value {
+    font-size: 1.3rem;
+  }
+
+  .explanation-block {
+    padding: 0.7rem;
+    margin-top: 0.75rem;
+  }
+
+  .lead-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.78rem;
+    margin-top: 0.75rem;
+  }
+
+  .disclaimer {
+    font-size: 0.68rem;
   }
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import './CustomCursor.css'
 
-// Единый список интерактивных элементов.
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], [role="combobox"], [role="option"], [role="listbox"], ' +
   '[role="switch"], [role="checkbox"], [role="radio"], input, textarea, select, label, ' +
@@ -19,13 +18,9 @@ const CustomCursor = () => {
   const isInsideWindow = useRef(true)
 
   useEffect(() => {
-    if (!window.matchMedia('(pointer: fine)').matches) return
+    const mq = window.matchMedia('(pointer: fine)')
+    if (!mq.matches) return undefined
 
-    // Точку и кольцо скрываем/показываем напрямую через inline-стиль с
-    // !important — это самый высокий приоритет в каскаде CSS, выше любых
-    // сторонних !important-правил из глобальных стилей проекта. Так что
-    // ЧТО БЫ ни было в остальном CSS проекта, точка гарантированно исчезнет
-    // одновременно с появлением руки.
     const applyDotRingVisibility = () => {
       const hidden = isOverInteractive.current || !isInsideWindow.current
       if (dotRef.current) {
@@ -50,15 +45,12 @@ const CustomCursor = () => {
     }
 
     const handleOver = (e) => {
-      const interactive = Boolean(e.target.closest(INTERACTIVE_SELECTOR))
+      const interactive = Boolean(e.target && e.target.closest && e.target.closest(INTERACTIVE_SELECTOR))
       isOverInteractive.current = interactive
       applyDotRingVisibility()
       if (handRef.current) handRef.current.classList.toggle('cur-hand-active', interactive)
     }
 
-    // relatedTarget === null означает, что мышь реально покинула/вошла в
-    // окно браузера (а не просто перешла с одного элемента страницы на
-    // другой — тогда relatedTarget всегда есть).
     const handleWindowLeave = (e) => {
       if (e.relatedTarget) return
       isInsideWindow.current = false
@@ -82,14 +74,16 @@ const CustomCursor = () => {
       frameRef.current = requestAnimationFrame(animate)
     }
 
-    document.addEventListener('mousemove', handleMove)
-    document.addEventListener('mouseover', handleOver)
-    document.addEventListener('mouseout', handleWindowLeave)
-    document.addEventListener('mouseover', handleWindowEnter)
+    window.addEventListener('mousemove', handleMove, { passive: true })
+    window.addEventListener('pointermove', handleMove, { passive: true })
+    document.addEventListener('mouseover', handleOver, { passive: true })
+    document.addEventListener('mouseout', handleWindowLeave, { passive: true })
+    document.addEventListener('mouseover', handleWindowEnter, { passive: true })
     frameRef.current = requestAnimationFrame(animate)
 
     return () => {
-      document.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('pointermove', handleMove)
       document.removeEventListener('mouseover', handleOver)
       document.removeEventListener('mouseout', handleWindowLeave)
       document.removeEventListener('mouseover', handleWindowEnter)

@@ -326,6 +326,7 @@ input[type="number"] {
 
 @media (max-width: 480px) {
   .calculator-container {
+    margin-top: 0rem;
     padding: 0.6rem;
     border-radius: 3px;
   }

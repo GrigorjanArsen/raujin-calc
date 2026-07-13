@@ -26,12 +26,16 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   background: var(--bg);
   color: var(--w);
   font-family: var(--text);
   font-weight: 300;
-  min-height: 100vh;
+  min-height: 100%;
   position: relative;
   font-size: 18px;
   line-height: 1.6;
@@ -53,10 +57,8 @@ body::before {
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.25rem 2rem;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+  padding: 0.5rem 1rem;
+  display: block;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -117,15 +119,11 @@ p, span, label, button, input, select {
 .mb-1 { margin-bottom: 1rem; }
 .mb-2 { margin-bottom: 2rem; }
 
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   #root {
-    padding: 0.5rem 1rem;
-    align-items: flex-start;
-    min-height: auto;
-    display: block;
-  }
-
-  h1 {
-    font-size: 36px;
+    min-height: var(--app-height, 100vh);
+    display: flex;
+    align-items: center;
+    padding: 1.25rem 2rem;
   }
 }
